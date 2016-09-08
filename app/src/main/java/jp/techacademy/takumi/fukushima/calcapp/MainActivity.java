@@ -1,6 +1,8 @@
 package jp.techacademy.takumi.fukushima.calcapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -38,27 +40,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View v){
 
-        double value1 = Double.valueOf(editText1.getText().toString());
-        double value2 = Double.valueOf(editText2.getText().toString());
+        String inputValue1 = editText1.getText().toString();
+        String inputValue2 = editText2.getText().toString();
+        if(inputValue1.equals("") || inputValue2.equals("")){
+            showAlertDialog();
+        }else {
 
-        if(v.getId() == R.id.addButton){
-            Intent intent = new Intent(this, resultActivity.class);
-            intent.putExtra("result", value1 + value2);
-            Log.d("UI-PARTS", String.valueOf(value1 + value2));
-            startActivity(intent);
-        }else if(v.getId() == R.id.subtractButton){
-            Intent intent = new Intent(this, resultActivity.class);
-            intent.putExtra("result", value1 - value2);
-            Log.d("UI-PARTS", String.valueOf(value1 - value2));
-            startActivity(intent);
-        }else if(v.getId() == R.id.multiplyButton){
-            Intent intent = new Intent(this, resultActivity.class);
-            intent.putExtra("result", value1 * value2);
-            startActivity(intent);
-        }else if(v.getId() == R.id.devideButton){
-            Intent intent = new Intent(this, resultActivity.class);
-            intent.putExtra("result", value1 / value2);
-            startActivity(intent);
+            double value1 = Double.valueOf(editText1.getText().toString());
+            double value2 = Double.valueOf(editText2.getText().toString());
+
+            if (v.getId() == R.id.addButton) {
+                Intent intent = new Intent(this, resultActivity.class);
+                intent.putExtra("result", value1 + value2);
+                Log.d("UI-PARTS", String.valueOf(value1 + value2));
+                startActivity(intent);
+            } else if (v.getId() == R.id.subtractButton) {
+                Intent intent = new Intent(this, resultActivity.class);
+                intent.putExtra("result", value1 - value2);
+                Log.d("UI-PARTS", String.valueOf(value1 - value2));
+                startActivity(intent);
+            } else if (v.getId() == R.id.multiplyButton) {
+                Intent intent = new Intent(this, resultActivity.class);
+                intent.putExtra("result", value1 * value2);
+                startActivity(intent);
+            } else if (v.getId() == R.id.devideButton) {
+                Intent intent = new Intent(this, resultActivity.class);
+                intent.putExtra("result", value1 / value2);
+                startActivity(intent);
+            }
         }
+    }
+
+    private void showAlertDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("エラーメッセージ");
+        alertDialogBuilder.setMessage("数値が入力されていません。");
+
+        alertDialogBuilder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("UI-PARTS", "OKボタン押下");
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
