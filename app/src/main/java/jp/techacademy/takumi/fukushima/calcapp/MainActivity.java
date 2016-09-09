@@ -44,35 +44,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String inputValue2 = editText2.getText().toString();
         if(inputValue1.equals("") || inputValue2.equals("")){
             showAlertDialog("empty");
-        }
+        }else {
 
-        try {
-            double value1 = Double.valueOf(editText1.getText().toString());
-            double value2 = Double.valueOf(editText2.getText().toString());
+            try {
+                double value1 = Double.valueOf(editText1.getText().toString());
+                double value2 = Double.valueOf(editText2.getText().toString());
 
 
-            if (v.getId() == R.id.addButton) {
-                Intent intent = new Intent(this, resultActivity.class);
-                intent.putExtra("result", value1 + value2);
-                Log.d("UI-PARTS", String.valueOf(value1 + value2));
-                startActivity(intent);
-            } else if (v.getId() == R.id.subtractButton) {
-                Intent intent = new Intent(this, resultActivity.class);
-                intent.putExtra("result", value1 - value2);
-                Log.d("UI-PARTS", String.valueOf(value1 - value2));
-                startActivity(intent);
-            } else if (v.getId() == R.id.multiplyButton) {
-                Intent intent = new Intent(this, resultActivity.class);
-                intent.putExtra("result", value1 * value2);
-                startActivity(intent);
-            } else if (v.getId() == R.id.devideButton) {
-                Intent intent = new Intent(this, resultActivity.class);
-                intent.putExtra("result", value1 / value2);
-                startActivity(intent);
+                if (v.getId() == R.id.addButton) {
+                    Intent intent = new Intent(this, resultActivity.class);
+                    intent.putExtra("result", value1 + value2);
+                    Log.d("UI-PARTS", String.valueOf(value1 + value2));
+                    startActivity(intent);
+                } else if (v.getId() == R.id.subtractButton) {
+                    Intent intent = new Intent(this, resultActivity.class);
+                    intent.putExtra("result", value1 - value2);
+                    Log.d("UI-PARTS", String.valueOf(value1 - value2));
+                    startActivity(intent);
+                } else if (v.getId() == R.id.multiplyButton) {
+                    Intent intent = new Intent(this, resultActivity.class);
+                    intent.putExtra("result", value1 * value2);
+                    startActivity(intent);
+                } else if (v.getId() == R.id.devideButton) {
+                    Intent intent = new Intent(this, resultActivity.class);
+                    intent.putExtra("result", value1 / value2);
+                    startActivity(intent);
+                }
+            } catch (NumberFormatException e) {
+                showAlertDialog("illegal");
             }
-        }
-        catch (NumberFormatException e) {
-            showAlertDialog("illegal");
         }
     }
 
