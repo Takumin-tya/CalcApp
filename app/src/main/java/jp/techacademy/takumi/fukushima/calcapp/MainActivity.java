@@ -43,11 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String inputValue1 = editText1.getText().toString();
         String inputValue2 = editText2.getText().toString();
         if(inputValue1.equals("") || inputValue2.equals("")){
-            showAlertDialog();
-        }else {
+            showAlertDialog("empty");
+        }
 
+        try {
             double value1 = Double.valueOf(editText1.getText().toString());
             double value2 = Double.valueOf(editText2.getText().toString());
+
 
             if (v.getId() == R.id.addButton) {
                 Intent intent = new Intent(this, resultActivity.class);
@@ -69,12 +71,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
         }
+        catch (NumberFormatException e) {
+            showAlertDialog("illegal");
+        }
     }
 
-    private void showAlertDialog(){
+    private void showAlertDialog(String error){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("エラーメッセージ");
-        alertDialogBuilder.setMessage("数値が入力されていません。");
+        if(error.equals("empty")) {
+            alertDialogBuilder.setMessage("数値が入力されていません。");
+        }else if (error.equals("illegal")) {
+            alertDialogBuilder.setMessage("入力値が不正です");
+        }
 
         alertDialogBuilder.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
